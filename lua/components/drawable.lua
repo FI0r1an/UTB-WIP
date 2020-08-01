@@ -1,0 +1,1 @@
+local lua = _G.lua  local extend = function (self, rsl, ...) return rsl  end return { extend = extend }  

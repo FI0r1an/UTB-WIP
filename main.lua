@@ -1,42 +1,28 @@
-
 local love = _G.love
-local lg = love.graphics
 
-_G.class = require("class")
-local lua = require("lua/hotFix/sourceUpdate")()
+--[[
+_G.lua = {}
+_G.lua.file = require("lua/lib/file")
+local util = require("lua/util")
+local cisp = require("lua/lib/cisp")
 
-function love.load()
-
+for _, path in pairs(util.getRealName(love.filesystem.getDirectoryItems("cisp"), "cisp")) do
+    local compiled, luaPath = cisp:compileFile(path)
+    lua.file.write(luaPath, compiled, "io")
 end
+]]
 
-function love.update(dt)
+_G.lua = require("lua.lib.hotFix.sourceUpdate")()
 
-end
+local vec2 = _G.lua.vec2
 
-function love.draw()
+VEC_ZERO = vec2(0, 0)
+VEC_LEFT = vec2(-1, 0)
+VEC_RIGHT = vec2(1, 0)
+VEC_UP = vec2(0, -1)
+VEC_DOWN = vec2(0, 1)
 
-end
-
-function love.keypressed(...)
-
-end
-
-function love.keyreleased(...)
-
-end
-
-function love.mousepressed(...)
-
-end
-
-function love.mousereleased(...)
-
-end
-
-function love.errorhandler(msg)
-    lg.setBackgroundColor(1, 0.5, 1, 1)
-    lg.setColor(1, 1, 1, 1)
-    return function ()
-        lg.print(msg, 96, 64)
-    end
-end
+local cfgLoader = _G.lua.cfgLoader
+SPRITE = cfgLoader.load"sprite.cfg"
+SPRITE_WIDTH = SPRITE.WIDTH
+SPRITE_HEIGHT = SPRITE.HEIGHT
