@@ -1,0 +1,15 @@
+$lua/components/spriteGroup.lua$
+
+(localfunc extend (_ rsl path scale) (
+	(def (index rsl @scale scale))
+	(def (index rsl @quad ((index love graphics newQuad) 0 0 0 0 SPRITE_WIDTH SPRITE_HEIGHT))
+	(localdef arr (index SPRITE path))
+	((index rsl setViewport) rsl (unpack arr))
+))
+
+(localfunc setViewport (self x y w h) (
+	((index self quad setViewport) x y w h)
+))
+(localfunc getQuad (self) (return (index self @quad)))
+
+(return (luaexpr !"{ extend = extend, getQuad = getQuad }"))

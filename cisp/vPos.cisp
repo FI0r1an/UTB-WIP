@@ -1,0 +1,11 @@
+$lua/components/vPos.lua$
+
+(localfunc extend (_ rsl x y) (
+	(def (index rsl position x) x)
+	(def (index rsl position y) y)
+	(return rsl)
+))
+
+(localfunc getPos (self) (return (index self @position)))
+
+(return (luaexpr !"{ extend = extend, getPosition = getPos, position = VEC_ZERO }"))
